@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
-import pandas
+import pandas as pd
+
 
 # initialize variables
 option = 0
@@ -18,9 +19,9 @@ while option != 6:
     # Run through each option
 
     if option == 1:
-        file = input('Enter full file name: ')
+        file = input('Enter full file name, including file path if in a different directory: ')
         try:
-            o_file = open('file', 'r')
+            o_file = pd.read_csv('file', 'r')
         except:
             print('Error opening file')
 
