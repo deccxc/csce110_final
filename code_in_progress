@@ -1,0 +1,38 @@
+import matplotlib.pyplot as plt
+import pandas
+
+# initialize variables
+option = 0
+
+while option != 6:
+    print('*********************************Main Menu******************************************')
+    print('1. Read csv file')
+    print('2. Generate student report file')
+    print('3. Generate student report charts')
+    print('4. Generate class report file')
+    print('5. Generate class report charts')
+    print('6. Quit')
+    print('***************************************************************************')
+    print()
+
+    # Run through each option
+
+    if option == 1:
+        file = input('Enter full file name: ')
+        try:
+            o_file = open('file', 'r')
+        except:
+            print('Error opening file')
+
+    elif option == 2:
+        # input code here
+
+    elif option == 3:
+        # input code here
+
+    elif option == 4:
+        # input code here
+
+    elif option == 5:
+        # input code here
+
