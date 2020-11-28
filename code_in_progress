@@ -21,7 +21,13 @@ while option != 6:
     if option == 1:
         file = input('Enter full file name, including file path if in a different directory: ')
         try:
-            o_file = pd.read_csv('file', 'r')
+            o_file = pd.read_csv(file)
+            # test that file opens correctly
+            # print(o_file)
+        except FileNotFoundError:
+            print('File not found. Try inputting the directory')
+        except UnicodeDecodeError:
+            print('Incorrect file type. Please save as .csv file.')
         except:
             print('Error opening file')
 
