@@ -122,10 +122,7 @@ while option != 6:
                 letter = 'F'
 
             uin_save = open(f'{uin}.txt', 'w')
-            uin_save.write(
-                f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}'
-                + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" +
-                f'Letter Grade: {letter}')
+            uin_save.write(f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}' + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" + 'Letter Grade: {letter}')
 
             print()
             print('*********************************Main Menu******************************************')
@@ -142,21 +139,55 @@ while option != 6:
 
         except FileNotFoundError:
             print('File not found. Choose option 1 to search a file')
+        except:
+            print('Error')
 
     elif option == 3:
-        # input code here
+        try:
+            uin = int(input('Enter UIN of student for report: '))
+            file1 = o_file.loc[o_file['UIN'] == uin]
+            student = file1.to_dict()
+            lab = {}
+            quiz = {}
+            exams = {}
+            reading = {}
+            score = {}
+            project = {}
 
-    
+            for key, value in student.items():
+                if 'lab' in key:
+                    results = {key: next(iter(value.values()))}
+                    lab.update(results)
+                elif 'quiz' in key:
+                    results = {key: next(iter(value.values()))}
+                    quiz.update(results)
+                elif 'exam' in key:
+                    results = {key: next(iter(value.values()))}
+                    exams.update(results)
+                elif 'reading' in key:
+                    results = {key: next(iter(value.values()))}
+                    reading.update(results)
+
+
+        except FileNotFoundError:
+            print('File not found. Try inputting the directory')
+        except:
+            print('Error')
+
+
     elif option == 4:
         try:
-            with open('report.txt','w') as class_report:
+            with open('report.txt', 'w') as class_report:
                 df = pd.read_csv('grades.csv')
                 all_rows = [list(rows) for rows in df.values]
                 student_grades = list()
                 for student in all_rows:
-                    lab_total = ((student[1]+student[2]+student[3]+student[4]+student[5]+student[6]) / 6) * (.25)
-                    quiz_total = ((student[7]+student[8]+student[9]+student[10]+student[11]+student[12]) / 6) * (.1)
-                    reading_total = ((student[13] + student[14] + student[15] + student[16] + student[17] + student[18]) / 6) * (.1)
+                    lab_total = ((student[1] + student[2] + student[3] + student[4] + student[5] + student[6]) / 6) * (
+                        .25)
+                    quiz_total = ((student[7] + student[8] + student[9] + student[10] + student[11] + student[
+                        12]) / 6) * (.1)
+                    reading_total = ((student[13] + student[14] + student[15] + student[16] + student[17] + student[
+                        18]) / 6) * (.1)
                     exam_total = (student[19] * .15) + (student[20] * .15) + (student[21] * .15)
                     project_total = (student[22] * .1)
                     student_total = lab_total + quiz_total + reading_total + exam_total + project_total
@@ -164,25 +195,28 @@ while option != 6:
                 student_grades.sort()
                 minimum = student_grades[0]
                 maximum = student_grades[-1]
+
                 if len(student_grades) % 2 == 0:
-                    num1 = student_grades[len(student_grades)//2]
+                    num1 = student_grades[len(student_grades) // 2]
                     num2 = student_grades[len(student_grades) // 2 - 1]
-                    median = (num1 + num2)/2
+                    median = (num1 + num2) / 2
                 else:
-                    median = student_grades[len(student_grades)//2]
+                    median = student_grades[len(student_grades) // 2]
                 total_students = len(df.index)
                 mean = sum(student_grades) / total_students
                 var_total = 0
+
                 for value in student_grades:
-                    variance = (mean - value)**2
+                    variance = (mean - value) ** 2
                     var_total += variance
-                standard_deviation = (var_total/total_students) ** .5
+                standard_deviation = (var_total / total_students) ** .5
                 class_report.write(f'Total number of students: {total_students}\n')
-                class_report.write(f'Minimum score: {round(minimum,1)}\n')
-                class_report.write(f'Maximum score: {round(maximum,1)}\n')
-                class_report.write(f'Median score: {round(median,1)}\n')
-                class_report.write(f'Mean score: {round(mean,1)}\n')
-                class_report.write(f'Standard deviation: {round(standard_deviation,1)}')
+                class_report.write(f'Minimum score: {round(minimum, 1)}\n')
+                class_report.write(f'Maximum score: {round(maximum, 1)}\n')
+                class_report.write(f'Median score: {round(median, 1)}\n')
+                class_report.write(f'Mean score: {round(mean, 1)}\n')
+                class_report.write(f'Standard deviation: {round(standard_deviation, 1)}')
+
             print()
             print('*********************************Main Menu******************************************')
             print('1. Read csv file')
@@ -193,9 +227,11 @@ while option != 6:
             print('6. Quit')
             print('***************************************************************************')
             print()
+
             option = int(input('Choose another option from the menu. '))
         except FileNotFoundError:
             print('File not found. Choose option 1 to search a file. ')
+
 
     elif option == 5:
         try:
@@ -204,7 +240,8 @@ while option != 6:
             student_grades = list()
             for student in all_rows:
                 lab_total = ((student[1] + student[2] + student[3] + student[4] + student[5] + student[6]) / 6) * (.25)
-                quiz_total = ((student[7] + student[8] + student[9] + student[10] + student[11] + student[12]) / 6) * (.1)
+                quiz_total = ((student[7] + student[8] + student[9] + student[10] + student[11] + student[12]) / 6) * (
+                    .1)
                 reading_total = ((student[13] + student[14] + student[15] + student[16] + student[17] + student[
                     18]) / 6) * (.1)
                 exam_total = (student[19] * .15) + (student[20] * .15) + (student[21] * .15)
@@ -212,12 +249,14 @@ while option != 6:
                 student_total = lab_total + quiz_total + reading_total + exam_total + project_total
                 student_grades.append(student_total)
             student_grades.sort()
+
             letter_grade = ''
             a_count = 0
             b_count = 0
             c_count = 0
             d_count = 0
             f_count = 0
+
             for grade in student_grades:
                 if grade >= 90:
                     letter_grade = 'A'
@@ -234,17 +273,18 @@ while option != 6:
                 else:
                     letter_grade = 'F'
                     f_count += 1
-            letters = ['A','B','C','D','F']
-            counts = [a_count,b_count,c_count,d_count,f_count]
-            bar_graph = plt.bar(letters,counts,align='center',alpha=.5,color=['c','g','m','b','r'])
-            plt.yticks(range(0,80,10))
+            letters = ['A', 'B', 'C', 'D', 'F']
+            counts = [a_count, b_count, c_count, d_count, f_count]
+            bar_graph = plt.bar(letters, counts, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r'])
+            plt.yticks(range(0, 80, 10))
             plt.ylabel('Grade Counts')
             plt.xlabel('Letter Grades')
             plt.title('Letter Grade Distribution')
             plt.show()
-            pie_chart = plt.pie(counts,labels=letters,colors=['c','g','m','b','r'])
+            pie_chart = plt.pie(counts, labels=letters, colors=['c', 'g', 'm', 'b', 'r'])
             plt.title('Letter Grade Distribution')
             plt.show()
+
             print()
             print('*********************************Main Menu******************************************')
             print('1. Read csv file')
@@ -255,7 +295,9 @@ while option != 6:
             print('6. Quit')
             print('***************************************************************************')
             print()
-            option = int(input('Choose another option from the menu. '))
-        except FileNotFoundError:
-            print('File not found. Choose option 1 to search file. ')
 
+            option = int(input('Choose another option from the menu. '))
+
+        except FileNotFoundError:
+
+            print('File not found. Choose option 1 to search file. ')
