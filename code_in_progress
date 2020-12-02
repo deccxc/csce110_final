@@ -299,5 +299,4 @@ while option != 6:
             option = int(input('Choose another option from the menu. '))
 
         except FileNotFoundError:
-
             print('File not found. Choose option 1 to search file. ')
