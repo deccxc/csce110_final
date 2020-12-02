@@ -122,7 +122,8 @@ while option != 6:
                 letter = 'F'
 
             uin_save = open(f'{uin}.txt', 'w')
-            uin_save.write(f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}' + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" + 'Letter Grade: {letter}')
+
+            uin_save.write(f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}' + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" + f'Letter Grade: {letter}')
 
             print()
             print('*********************************Main Menu******************************************')
