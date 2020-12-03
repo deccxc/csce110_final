@@ -181,10 +181,10 @@ def option_5():
     plt.ylabel('Grade Counts')
     plt.xlabel('Letter Grades')
     plt.title('Letter Grade Distribution')
-    plt.show()
+    plt.savefig('Letter_bar_chart')
     pie_chart = plt.pie(counts, labels=letters, colors=['c', 'g', 'm', 'b', 'r'])
     plt.title('Letter Grade Distribution')
-    plt.show()
+    plt.savefig('Letter_pie_chart')
 
 while option not in ['6', 'q', 'quit']:
     main_menu()
@@ -195,9 +195,7 @@ while option not in ['6', 'q', 'quit']:
         file = input('Enter full file name, including file path if in a different directory: ')
         try:
             o_file = pd.read_csv(file)
-            main_menu()
 
-            option = input('Choose another option from the menu: ')
         except FileNotFoundError:
             print('File not found. Try inputting the directory')
         except UnicodeDecodeError:
@@ -213,8 +211,7 @@ while option not in ['6', 'q', 'quit']:
             os.mkdir(path)
             try:
                 option_2()
-                main_menu()
-                option = input('Choose another option from the menu: ')
+
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file')
             except:
@@ -222,8 +219,7 @@ while option not in ['6', 'q', 'quit']:
         except FileExistsError:
             try:
                 option_2()
-                main_menu()
-                option = input('Choose another option from the menu: ')
+
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file')
             except:
@@ -254,8 +250,9 @@ while option not in ['6', 'q', 'quit']:
                 elif 'reading' in key:
                     results = {key: next(iter(value.values()))}
                     reading.update(results)
-            print(lab)
-            option = input('Choose another option from the menu: ')
+
+                    # Need to address
+
 
         except FileNotFoundError:
             print('File not found. Try inputting the directory')
@@ -270,25 +267,20 @@ while option not in ['6', 'q', 'quit']:
             try:
                 report = path + '/report.txt'
                 option_4()
-                main_menu()
-                option = input('Choose another option from the menu. ')
+
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file. ')
         except FileExistsError:
             try:
                 report = path + '/report.txt'
                 option_4()
-                main_menu()
 
-                option = input('Choose another option from the menu. ')
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file. ')
 
     elif option == '5':
         try:
             option_5()
-            main_menu()
-            option = input('Choose another option from the menu. ')
 
         except FileNotFoundError:
             print('File not found. Choose option 1 to search file. ')
