@@ -181,10 +181,10 @@ def option_5():
     plt.ylabel('Grade Counts')
     plt.xlabel('Letter Grades')
     plt.title('Letter Grade Distribution')
-    plt.savefig('Letter_bar_chart')
+    plt.savefig(path + '\Letter_bar_chart')
     pie_chart = plt.pie(counts, labels=letters, colors=['c', 'g', 'm', 'b', 'r'])
     plt.title('Letter Grade Distribution')
-    plt.savefig('Letter_pie_chart')
+    plt.savefig(path + '\Letter_pie_chart')
 
 while option not in ['6', 'q', 'quit']:
     main_menu()
@@ -195,7 +195,6 @@ while option not in ['6', 'q', 'quit']:
         file = input('Enter full file name, including file path if in a different directory: ')
         try:
             o_file = pd.read_csv(file)
-
         except FileNotFoundError:
             print('File not found. Try inputting the directory')
         except UnicodeDecodeError:
@@ -211,7 +210,6 @@ while option not in ['6', 'q', 'quit']:
             os.mkdir(path)
             try:
                 option_2()
-
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file')
             except:
@@ -219,45 +217,194 @@ while option not in ['6', 'q', 'quit']:
         except FileExistsError:
             try:
                 option_2()
-
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file')
             except:
                 option = input('Choose another option from the menu: ')
 
     elif option == '3':
+        uin = int(input('Enter UIN of student for report: '))
+        path = os.getcwd()
+        path = path + f'\{uin}'
         try:
-            uin = int(input('Enter UIN of student for report: '))
-            print(f'uin {uin}')
-            file1 = o_file.loc[o_file['UIN'] == uin]
-            print(f'file {file1}')
-            student = file1.to_dict()
-            lab = {}
-            quiz = {}
-            exams = {}
-            reading = {}
+            os.mkdir(path)
+            try:
+                file1 = o_file.loc[o_file['UIN'] == uin]
+                student = file1.to_dict()
 
-            for key, value in student.items():
-                if 'lab' in key:
-                    results = {key: next(iter(value.values()))}
-                    lab.update(results)
-                elif 'quiz' in key:
-                    results = {key: next(iter(value.values()))}
-                    quiz.update(results)
-                elif 'exam' in key:
-                    results = {key: next(iter(value.values()))}
-                    exams.update(results)
-                elif 'reading' in key:
-                    results = {key: next(iter(value.values()))}
-                    reading.update(results)
+                lab = {}
+                quiz = {}
+                exams = {}
+                reading = {}
 
-                    # Need to address
+                lab_x = []
+                lab_y = []
+                exam_x = []
+                exam_y = []
+                quizzes_x = []
+                quizzes_y = []
+                reading_x = []
+                reading_y = []
 
+                for key, value in student.items():
+                    if 'lab' in key:
+                        results = {key: next(iter(value.values()))}
+                        lab.update(results)
+                    elif 'quiz' in key:
+                        results = {key: next(iter(value.values()))}
+                        quiz.update(results)
+                    elif 'exam' in key:
+                        results = {key: next(iter(value.values()))}
+                        exams.update(results)
+                    elif 'reading' in key:
+                        results = {key: next(iter(value.values()))}
+                        reading.update(results)
 
-        except FileNotFoundError:
-            print('File not found. Try inputting the directory')
-        except:
-            print('Error')
+                for key in lab:
+                    lab_x.append(key)
+                for value in lab.values():
+                    lab_y.append(value)
+
+                for key in exams:
+                    exam_x.append(key)
+                for value in exams.values():
+                    exam_y.append(value)
+
+                for key in quiz:
+                    quizzes_x.append(key)
+                for value in quiz.values():
+                    quizzes_y.append(value)
+
+                for key in reading:
+                    reading_x.append(key)
+                for value in lab.values():
+                    reading_y.append(value)
+
+                bar_graph = plt.bar(lab_x, lab_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Labs')
+                plt.title('Lab Grade Distribution')
+                plt.savefig(path + '\Lab Grades')
+                plt.close()
+
+                bar_graph1 = plt.bar(exam_x, exam_y, align='center', alpha=.5, color=['c', 'g', 'm'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Exams')
+                plt.title('Exam Grade Distribution')
+                plt.savefig(path + '\Exam Grades')
+                plt.close()
+
+                bar_graph2 = plt.bar(quizzes_x, quizzes_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Quizzes')
+                plt.title('Quizzes Grade Distribution')
+                plt.savefig(path + '\Quizzes Grades')
+                plt.close()
+
+                bar_graph3 = plt.bar(reading_x, reading_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Readings')
+                plt.title('Reading Grade Distribution')
+                plt.savefig(path + '\Reading Grades')
+                plt.close()
+
+            except FileNotFoundError:
+                print('File not found. Try inputting the directory')
+            except:
+                print('Error')
+        except FileExistsError:
+            try:
+                file1 = o_file.loc[o_file['UIN'] == uin]
+                student = file1.to_dict()
+
+                lab = {}
+                quiz = {}
+                exams = {}
+                reading = {}
+
+                lab_x = []
+                lab_y = []
+                exam_x = []
+                exam_y = []
+                quizzes_x = []
+                quizzes_y = []
+                reading_x = []
+                reading_y = []
+
+                for key, value in student.items():
+                    if 'lab' in key:
+                        results = {key: next(iter(value.values()))}
+                        lab.update(results)
+                    elif 'quiz' in key:
+                        results = {key: next(iter(value.values()))}
+                        quiz.update(results)
+                    elif 'exam' in key:
+                        results = {key: next(iter(value.values()))}
+                        exams.update(results)
+                    elif 'reading' in key:
+                        results = {key: next(iter(value.values()))}
+                        reading.update(results)
+
+                for key in lab:
+                    lab_x.append(key)
+                for value in lab.values():
+                    lab_y.append(value)
+
+                for key in exams:
+                    exam_x.append(key)
+                for value in exams.values():
+                    exam_y.append(value)
+
+                for key in quiz:
+                    quizzes_x.append(key)
+                for value in quiz.values():
+                    quizzes_y.append(value)
+
+                for key in reading:
+                    reading_x.append(key)
+                for value in lab.values():
+                    reading_y.append(value)
+
+                bar_graph = plt.bar(lab_x, lab_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Labs')
+                plt.title('Lab Grade Distribution')
+                plt.savefig(path + '\Lab Grades')
+                plt.close()
+
+                bar_graph1 = plt.bar(exam_x, exam_y, align='center', alpha=.5, color=['c', 'g', 'm'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Exams')
+                plt.title('Exam Grade Distribution')
+                plt.savefig(path + '\Exam Grades')
+                plt.close()
+
+                bar_graph2 = plt.bar(quizzes_x, quizzes_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Quizzes')
+                plt.title('Quizzes Grade Distribution')
+                plt.savefig(path + '\Quizzes Grades')
+                plt.close()
+
+                bar_graph3 = plt.bar(reading_x, reading_y, align='center', alpha=.5, color=['c', 'g', 'm', 'b', 'r', 'y'])
+                plt.yticks(range(0, 120, 10))
+                plt.ylabel('Grade')
+                plt.xlabel('Readings')
+                plt.title('Reading Grade Distribution')
+                plt.savefig(path + '\Reading Grades')
+                plt.close()
+
+            except FileNotFoundError:
+                print('File not found. Try inputting the directory')
+            except:
+                print('Error')
 
     elif option == '4':
         path = os.getcwd()
@@ -267,22 +414,30 @@ while option not in ['6', 'q', 'quit']:
             try:
                 report = path + '/report.txt'
                 option_4()
-
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file. ')
         except FileExistsError:
             try:
                 report = path + '/report.txt'
                 option_4()
-
             except FileNotFoundError:
                 print('File not found. Choose option 1 to search a file. ')
 
     elif option == '5':
+        path = os.getcwd()
+        path = path + '\class_charts'
         try:
-            option_5()
+            os.mkdir(path)
 
-        except FileNotFoundError:
-            print('File not found. Choose option 1 to search file. ')
+            try:
+                option_5()
+            except FileNotFoundError:
+                print('File not found. Choose option 1 to search file. ')
+
+        except FileExistsError:
+            try:
+                option_5()
+            except FileNotFoundError:
+                print('File not found. Choose option 1 to search file. ')
     else:
         print("Option isn't valid. Please try again.")
