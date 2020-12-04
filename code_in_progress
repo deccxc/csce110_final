@@ -9,6 +9,7 @@ import pandas as pd
 import os
 
 def main():
+    'This is the function that runs our code.'
     def main_menu():
         'Prints the main menu text.'
         print()
@@ -172,7 +173,7 @@ def main():
                     plt.ylabel('Grade')
                     plt.xlabel('Labs')
                     plt.title('Lab Grade Distribution')
-                    plt.savefig(path + '\Lab Grades')
+                    plt.savefig(path + '/Lab Grades')
                     plt.close()
 
                     bar_graph1 = plt.bar(exam_x, exam_y, align='center', alpha=.5, color=['c', 'g', 'm'])
@@ -180,7 +181,7 @@ def main():
                     plt.ylabel('Grade')
                     plt.xlabel('Exams')
                     plt.title('Exam Grade Distribution')
-                    plt.savefig(path + '\Exam Grades')
+                    plt.savefig(path + '/Exam Grades')
                     plt.close()
 
                     bar_graph2 = plt.bar(quizzes_x, quizzes_y, align='center', alpha=.5,
@@ -189,7 +190,7 @@ def main():
                     plt.ylabel('Grade')
                     plt.xlabel('Quizzes')
                     plt.title('Quizzes Grade Distribution')
-                    plt.savefig(path + '\Quizzes Grades')
+                    plt.savefig(path + '/Quizzes Grades')
                     plt.close()
 
                     bar_graph3 = plt.bar(reading_x, reading_y, align='center', alpha=.5,
@@ -198,7 +199,7 @@ def main():
                     plt.ylabel('Grade')
                     plt.xlabel('Readings')
                     plt.title('Reading Grade Distribution')
-                    plt.savefig(path + '\Reading Grades')
+                    plt.savefig(path + '/Reading Grades')
                     plt.close()
                     valid = 1
                 except:
@@ -296,11 +297,11 @@ def main():
         plt.ylabel('Grade Counts')
         plt.xlabel('Letter Grades')
         plt.title('Letter Grade Distribution')
-        plt.savefig(path + '\Letter_bar_chart')
+        plt.savefig(path + '/Letter_bar_chart')
         plt.close()
         pie_chart = plt.pie(counts, labels=letters, colors=['c', 'g', 'm', 'b', 'r'])
         plt.title('Letter Grade Distribution')
-        plt.savefig(path + '\Letter_pie_chart')
+        plt.savefig(path + '/Letter_pie_chart')
         plt.close()
     option = 0
     while option not in ['6', 'q', 'quit']:
@@ -321,7 +322,7 @@ def main():
 
         elif option == '2':
             path = os.getcwd()
-            path = path + '\Data'
+            path = path + '/Data'
             try:
                 os.mkdir(path)
                 try:
@@ -344,7 +345,7 @@ def main():
             try:
                 uin = int(uin_str)
                 path = os.getcwd()
-                path = path + f'\{uin}'
+                path = path + f'/{uin}'
                 try:
                     os.mkdir(path)
                     try:
@@ -365,7 +366,7 @@ def main():
 
         elif option == '4':
             path = os.getcwd()
-            path = path + '\Data'
+            path = path + '/Data'
             try:
                 os.mkdir(path)
                 try:
@@ -382,7 +383,7 @@ def main():
 
         elif option == '5':
             path = os.getcwd()
-            path = path + '\class_charts'
+            path = path + '/class_charts'
             try:
                 os.mkdir(path)
                 try:
