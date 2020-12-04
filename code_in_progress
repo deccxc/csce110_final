@@ -112,6 +112,7 @@ def main():
                 uin_str = input('Invalid UIN, please try again: ')
 
     def option_3(uin_str):
+        'Makes charts for students showing their grades for each type of assignments in their own directory.'
         valid = 0
         while valid == 0:
             if len(uin_str) == 10:
