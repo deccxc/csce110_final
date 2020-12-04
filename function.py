@@ -1,8 +1,9 @@
-'''File:    final.py
+'''
+File:    final.py
 Author:  Corbin Cabrera, Taylor Schofield
 Date:    12/02/2020
-Email:  deccxc@tamu.edu , taylor1311@tamu.edu'''
-
+Email:  deccxc@tamu.edu , taylor1311@tamu.edu
+'''
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -271,9 +272,11 @@ def option_5():
     plt.xlabel('Letter Grades')
     plt.title('Letter Grade Distribution')
     plt.savefig(path + '\Letter_bar_chart')
+    plt.close()
     pie_chart = plt.pie(counts, labels=letters, colors=['c', 'g', 'm', 'b', 'r'])
     plt.title('Letter Grade Distribution')
     plt.savefig(path + '\Letter_pie_chart')
+    plt.close()
 
 while option not in ['6', 'q', 'quit']:
     main_menu()
