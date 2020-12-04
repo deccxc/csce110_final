@@ -24,80 +24,92 @@ def main_menu():
     print()
 
 def option_2():
-    uin = int(input('Enter UIN of student for report: '))
-    file1 = o_file.loc[o_file['UIN'] == uin]
-    student = file1.to_dict()
-    lab = {}
-    quiz = {}
-    exams = {}
-    reading = {}
-    score = {}
-    project = {}
-    for key, value in student.items():
-        if 'lab' in key:
-            results = {key: next(iter(value.values()))}
-            lab.update(results)
-        elif 'quiz' in key:
-            results = {key: next(iter(value.values()))}
-            quiz.update(results)
-        elif 'exam' in key:
-            results = {key: next(iter(value.values()))}
-            exams.update(results)
-        elif 'reading' in key:
-            results = {key: next(iter(value.values()))}
-            reading.update(results)
-        elif 'project' in key:
-            results = {key: next(iter(value.values()))}
-            project.update(results)
-    count_lab = 0
-    total_lab = 0
-    for key in lab:
-        count_lab += 1
-        total_lab += lab[key]
-    lab_score = round(total_lab / count_lab, 1)
-    count_quiz = 0
-    total_quiz = 0
-    for key in quiz:
-        count_quiz += 1
-        total_quiz += quiz[key]
-    quiz_score = round(total_quiz / count_quiz, 1)
-    count_reading = 0
-    total_reading = 0
-    for key in reading:
-        count_reading += 1
-        total_reading += reading[key]
-    reading_score = round(total_reading / count_reading, 1)
-    count_exam = 0
-    total_exam = 0
-    for key in exams:
-        count_exam += 1
-        total_exam += exams[key]
-    exam_score = round(total_exam / count_exam, 1)
-    count_project = 0
-    total_project = 0
-    for key in project:
-        count_project += 1
-        total_project += project[key]
-    project_score = round(total_project / count_project, 1)
-    total_grade = round(
-        (exam_score * .45) + (lab_score * .25) + (quiz_score * .10) + (reading_score * .10) + \
-        (project_score * .10), 1)
-    if total_grade >= 90:
-        letter = 'A'
-    elif 89.99 >= total_grade >= 80:
-        letter = 'B'
-    elif 79.99 >= total_grade >= 70:
-        letter = 'C'
-    elif 69.99 >= total_grade >= 60:
-        letter = 'D'
-    else:
-        letter = 'F'
-    uin = str(uin)
-    save_path = path + '/' + uin + '.txt'
-    uin_save = open(save_path, 'w')
+    uin_str = input('Enter UIN of student for report: ')
+    valid = 0
+    while valid == 0:
+        if len(uin_str) == 10:
+            try:
+                uin = int(uin_str)
+                file1 = o_file.loc[o_file['UIN'] == uin]
+                student = file1.to_dict()
+                lab = {}
+                quiz = {}
+                exams = {}
+                reading = {}
+                score = {}
+                project = {}
+                for key, value in student.items():
+                    if 'lab' in key:
+                        results = {key: next(iter(value.values()))}
+                        lab.update(results)
+                    elif 'quiz' in key:
+                        results = {key: next(iter(value.values()))}
+                        quiz.update(results)
+                    elif 'exam' in key:
+                        results = {key: next(iter(value.values()))}
+                        exams.update(results)
+                    elif 'reading' in key:
+                        results = {key: next(iter(value.values()))}
+                        reading.update(results)
+                    elif 'project' in key:
+                        results = {key: next(iter(value.values()))}
+                        project.update(results)
+                count_lab = 0
+                total_lab = 0
+                for key in lab:
+                    count_lab += 1
+                    total_lab += lab[key]
+                lab_score = round(total_lab / count_lab, 1)
+                count_quiz = 0
+                total_quiz = 0
+                for key in quiz:
+                    count_quiz += 1
+                    total_quiz += quiz[key]
+                quiz_score = round(total_quiz / count_quiz, 1)
+                count_reading = 0
+                total_reading = 0
+                for key in reading:
+                    count_reading += 1
+                    total_reading += reading[key]
+                reading_score = round(total_reading / count_reading, 1)
+                count_exam = 0
+                total_exam = 0
+                for key in exams:
+                    count_exam += 1
+                    total_exam += exams[key]
+                exam_score = round(total_exam / count_exam, 1)
+                count_project = 0
+                total_project = 0
+                for key in project:
+                    count_project += 1
+                    total_project += project[key]
+                project_score = round(total_project / count_project, 1)
+                total_grade = round(
+                    (exam_score * .45) + (lab_score * .25) + (quiz_score * .10) + (reading_score * .10) + \
+                    (project_score * .10), 1)
+                if total_grade >= 90:
+                    letter = 'A'
+                elif 89.99 >= total_grade >= 80:
+                    letter = 'B'
+                elif 79.99 >= total_grade >= 70:
+                    letter = 'C'
+                elif 69.99 >= total_grade >= 60:
+                    letter = 'D'
+                else:
+                    letter = 'F'
+                uin = str(uin)
+                save_path = path + '/' + uin + '.txt'
+                uin_save = open(save_path, 'w')
 
-    uin_save.write(
-        f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}' + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" + f'Letter Grade: {letter}')
+                uin_save.write(
+                    f'Exams mean: {exam_score}' + "\n" + f'Labs mean: {lab_score}' + "\n" + f'Quizzes mean: {quiz_score}' + "\n" + f'Reading activities mean: {reading_score}' + "\n" + f'Score: {total_grade}%' + "\n" + f'Letter Grade: {letter}')
+                valid = 1
+            except:
+                uin_str = input('Invalid UIN, please try again: ')
+
+        else:
+            uin_str = input('Invalid UIN, please try again: ')
+
 
 def option_3():
     file1 = o_file.loc[o_file['UIN'] == uin]
